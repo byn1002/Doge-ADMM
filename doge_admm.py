@@ -151,6 +151,45 @@ def step2(V, l, rho, k, shape): #并行版本
         )
     )
 
+    pairs = []
+    a = np.array([-l / rho, -l / rho, 2*l / rho])
+    a1 = np.array([[-l / rho, -l / rho, 2*l / rho]])
+    m = 0
+    n = 0 
+    if  ((2 * m + n) % 5, (m - 2 * n) % 5) == aim:
+        pairs.append([idx[m, n+1], idx[m+1, n], idx[m, n]])
+    m = 0
+    n = cols - 1
+    if  ((2 * m + n) % 5, (m - 2 * n) % 5) == aim:
+        pairs.append([idx[m, n-1], idx[m+1, n], idx[m, n]])
+    m = rows - 1
+    n = 0 
+    if  ((2 * m + n) % 5, (m - 2 * n) % 5) == aim:
+        pairs.append([idx[m, n+1], idx[m-1, n], idx[m, n]])
+    m = rows - 1
+    n = cols - 1
+    if  ((2 * m + n) % 5, (m - 2 * n) % 5) == aim:
+        pairs.append([idx[m, n-1], idx[m-1, n], idx[m, n]])
+
+    if len(pairs) == 0:
+        return W
+    pairs = np.array(pairs)
+    y_values = V[pairs.T]
+    delta_y_positive = y_values - a1.T
+    delta_y_negative = y_values + a1.T
+    delta_y_zero = y_values - (a @ y_values) / threshold * a1.T
+
+    W[pairs.T] = np.where(
+        a @ y_values > threshold,
+        delta_y_positive,
+        np.where(
+            a @ y_values < -threshold,
+            delta_y_negative,
+            delta_y_zero,
+        )
+    )
+
+
     return W
 
 def dogeADMM(image,rho=1,l=1,B=1,max_iter=100,k=2,threshold = 1e-5, get_loss_seq = False, get_img_seq = False):
