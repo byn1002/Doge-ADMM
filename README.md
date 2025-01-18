@@ -15,6 +15,5 @@
 ## 饼（冰）：
 - 进行三维图像的去噪；
 - 给fmri去噪：根据z轴距离赋权重；对于时间序列同样进行去噪；
-- 可以发的paper: Journal of Computational and Graphical Statistics, IEEE Transactions on Medical Imaging.
 
-expected to Yilin, Gushihui, Qingnianwenzhai
+
