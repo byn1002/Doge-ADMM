@@ -1,6 +1,6 @@
 # Trend-Filtering-on-Graphs
 
-This repo contains a python implementation for the paper Doge-ADMM: A Highly Scalable Parallel Algorithm for Trend Filtering on Graphs by Yinan Bu, Dongrun Wu and Yihong Zuo.
+This repo contains a Python implementation for the paper Doge-ADMM: A Highly Scalable Parallel Algorithm for Trend Filtering on Graphs by Yinan Bu, Dongrun Wu and Yihong Zuo.
 
 
 ## Installation
@@ -8,7 +8,7 @@ Simply run
 
 ```conda env create -f environment.yml```
 
-which will create a sedd environment with packages installed.
+which will create an environment with packages installed.
 
 
 ## References:
