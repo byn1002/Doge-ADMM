@@ -16,4 +16,6 @@
 - 进行三维图像的去噪；
 - 给fmri去噪：根据z轴距离赋权重；对于时间序列同样进行去噪；
 
-
+## file
+- doge_admm.py 算法
+- experiment_1.ipynb 实验
