@@ -12,7 +12,7 @@
 - 给出显式解-> （用C跑实验）（用python的thread跑并行）
 - compare time and effects of denosing;
 
-## 饼（冰）：
+## 饼（冰）
 - 进行三维图像的去噪；
 - 给fmri去噪：根据z轴距离赋权重；对于时间序列同样进行去噪；
 
