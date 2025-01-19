@@ -20,14 +20,11 @@ which will create an environment with packages installed.
 - [Doge-ADMM](https://www.overleaf.com/1426874579gcqzzrxcxgdx#d47b7c)
 
 ## Log:
-- graph decomposition(k=0,1,2);
-- 给出显式解-> （用C跑实验）（用python的thread跑并行）
+- graph decomposition(B=1,2,3);
+- Doge-ADMM algorithm
 - compare time and effects of denosing;
 
-## 饼（冰）
-- 进行三维图像的去噪；
-- 给fmri去噪：根据z轴距离赋权重；对于时间序列同样进行去噪；
-
-## file
-- doge_admm.py Algorithm
-- experiment_1.ipynb Experiment
+## File
+- The algorithm implementation for our project can be found in the **Algorithm** folder.
+- The experiment-related code is located in the **Experiment** folder.
+- The remaining files include reproductions of certain papers and code for generating plots.
