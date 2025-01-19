@@ -18,4 +18,4 @@ which will create an environment with packages installed.
 ## File
 - The algorithm implementation for our project can be found in the **Algorithm** folder.
 - The experiment-related code is located in the **Experiment** folder.
-- The remaining files include the algorithm code from the referenced paper and the code for generating plots.
+
