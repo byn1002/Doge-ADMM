@@ -1,4 +1,4 @@
-name: myenv
+name: dogeadmm
 channels:
   - defaults
 dependencies:
