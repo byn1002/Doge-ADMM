@@ -1,6 +1,6 @@
 # Doge-ADMM
 
-This repo contains a Python implementation for the paper *Doge-ADMM: A Highly Scalable Parallel Algorithm for Trend Filtering on Graphs* by Yinan Bu, Dongrun Wu and Yihong Zuo.
+This repo contains a Python implementation for the paper **Doge-ADMM: A Highly Scalable Parallel Algorithm for Trend Filtering on Graphs** by Yinan Bu, Dongrun Wu and Yihong Zuo.
 
 
 ## Installation
