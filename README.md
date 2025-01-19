@@ -19,12 +19,8 @@ which will create an environment with packages installed.
 ## Overleaf:
 - [Doge-ADMM](https://www.overleaf.com/1426874579gcqzzrxcxgdx#d47b7c)
 
-## Log:
-- graph decomposition(B=1,2,3);
-- Doge-ADMM algorithm
-- compare time and effects of denosing;
 
 ## File
 - The algorithm implementation for our project can be found in the **Algorithm** folder.
 - The experiment-related code is located in the **Experiment** folder.
-- The remaining files include reproductions of certain papers and code for generating plots.
+- The remaining files include the algorithm code from the referenced paper and the code for generating plots.
