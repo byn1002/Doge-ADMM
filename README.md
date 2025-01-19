@@ -12,8 +12,7 @@ which will create an environment with packages installed.
 
 
 ## Paper:
-- [Doge-ADMM: AHighly Scalable Parallel Algorithm
- for Trend Filtering on Graphs](Doge_ADMM.pdf)
+- [Doge-ADMM: A Highly Scalable Parallel Algorithm for Trend Filtering on Graphs](Doge_ADMM.pdf)
 
 
 ## File
