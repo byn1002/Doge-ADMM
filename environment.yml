@@ -1,12 +1,13 @@
 name: dogeadmm
 channels:
+  - conda-forge
   - defaults
 dependencies:
-  - python=3.7
+  - python
+  - numpy=1.21.6
+  - scipy=1.7.3
+  - matplotlib
+  - pillow=9.4.0
+  - networkx=2.6.3
+  - cvxpy
   - pip
-  - pip:
-      - Pillow==9.4.0
-      - numpy==1.21.6
-      - scipy==1.7.3
-      - matplotlib==3.5.3
-      - networkx==2.6.3

@@ -1,7 +1,6 @@
 ## Overview:
 - This folder contains the algorithm part of our project. 
 
-- While using the algorithm in `doge_admm.py` or `tfgraph.py`, note that the file must be placed in the same folder.
 ---
 ## Files:
 - `doge-admm.py`: contains the main part of our algorithm and some other algorithms, including GTF ADMM, Fast ADMM, Original ADMM.

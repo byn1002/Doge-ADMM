@@ -8,10 +8,7 @@ from PIL import Image
 
 def soft_thresholding(x, lam):
     return np.sign(x) * np.maximum(np.abs(x) - lam, 0)
-
-"""
-Generate Delta
-"""
+# Generate Delta
 
 def generate_L(image): # index=i*n+j
     m, n = image.shape

@@ -1,9 +1,15 @@
+import os
+from pathlib import Path
+try:
+    BASE_DIR = Path(__file__).resolve().parent.parent
+except NameError:
+    BASE_DIR = Path.cwd().parent
 import numpy as np
 from scipy.sparse import lil_matrix
 import scipy.sparse
 import matplotlib.pyplot as plt
 import networkx as nx
-from tfgraph import *
+from Algorithm.tfgraph import *
 import copy
 import time
 import cvxpy as cp
@@ -11,68 +17,46 @@ import cvxpy as cp
 def loss(y, beta, delta_loss, l):
     return 0.5 * np.linalg.norm(y - beta) ** 2 + l * np.linalg.norm(delta_loss @ beta, ord=1)
 
-def step1(V, l, rho, k, shape): # 并行版本
-    """
-    通过向量化并行运算更新矩阵 W。
+def step1(V, l, rho, k, shape):
 
-    参数：
-        V: numpy 数组，表示输入矩阵 (1D 或 2D)。
-        l: 正则化参数。
-        rho: 超参数。
-        k: 当前的标志参数。
-        shape: 矩阵的行列数 (rows, cols)。
-    
-    返回：
-        W: 更新后的矩阵。
-    """
-    # 初始化 W 为 V 的副本
     W = np.copy(V)
-
-    # 计算调整向量 a
     a = np.array([l / rho, -l / rho])
     a1 = np.array([[l / rho, -l / rho]])
     threshold = 2 * (l / rho) ** 2
-
-    # 获取偏移量的索引
     rows, cols = shape
     idx = np.arange(rows * cols).reshape(rows, cols)
     pairs = []
 
-    if k == 0:  # 横向相邻点，满足行减列是 2 的倍数
+    if k == 0:
         for i in range(rows):
             for j in range(cols - 1):
                 if (i - j) % 2 == 0:  
                     pairs.append([idx[i, j], idx[i, j + 1]])
 
-    if k == 1:  # 横向相邻点，满足行减列不是 2 的倍数 
+    if k == 1: 
         for i in range(rows):
             for j in range(cols - 1):
                 if (i - j) % 2 == 1:  
                     pairs.append([idx[i, j], idx[i, j + 1]])
     
-    if k == 2:  # 纵向相邻点，满足行减列是 2 的倍数 
+    if k == 2: 
         for i in range(rows-1):
             for j in range(cols):
                 if (i - j) % 2 == 0:  
                     pairs.append([idx[i, j], idx[i+1, j]])
-    if k == 3:  # 纵向相邻点，满足行减列不是 2 的倍数 
+    if k == 3: 
         for i in range(rows-1):
             for j in range(cols):
                 if (i - j) % 2 == 1:  
                     pairs.append([idx[i, j], idx[i+1, j]])
 
     pairs = np.array(pairs)
-    # horizontal_pairs = (idx[:, :-1].flatten(), idx[:, 1:].flatten())
-    # 获取相邻的索引对
-    # row_idx, col_idx = horizontal_pairs
-    y_values = V[pairs.T]  # 获取对应的 y 值
+    y_values = V[pairs.T] 
 
-    # 条件计算，直接对整个数组进行广播操作
     delta_y_positive = y_values - a1.T
     delta_y_negative = y_values + a1.T
     delta_y_zero = y_values - (a @ y_values) / threshold * a1.T
 
-    # 更新规则：通过广播操作和条件判断批量更新
     W[pairs.T] = np.where(
         a @ y_values > threshold,
         delta_y_positive,
@@ -85,7 +69,7 @@ def step1(V, l, rho, k, shape): # 并行版本
 
     return W
 
-def step2(V, l, rho, k, shape): #并行版本
+def step2(V, l, rho, k, shape):
     W = np.copy(V)
     flag = [(0,0),(2,1),(1,3),(4,2),(3,4)]
     aim = flag[k]
@@ -251,7 +235,6 @@ def dogeADMM(image,rho=1,l=1,B=1,max_iter=100,k=0,threshold = 1e-5, get_loss_seq
 
             Loss.append(loss(y, Z, delta_loss, l))
             Time.append(time.time()-time0)
-            # 终止条件  
             if np.linalg.norm(Z - Z_old) / np.linalg.norm(Z_old) < threshold:
                 break
             Z_old = np.copy(Z)
@@ -285,7 +268,6 @@ def dogeADMM(image,rho=1,l=1,B=1,max_iter=100,k=0,threshold = 1e-5, get_loss_seq
 
             Loss.append(loss(y, Z, delta_loss, l))
             Time.append(time.time()-time0)
-            # 终止条件 
             if np.linalg.norm(Z - Z_old) / np.linalg.norm(Z_old) < threshold:
                 break
             Z_old = np.copy(Z)
@@ -358,8 +340,6 @@ def ADMM(image,k,lambd,rho,max_iter=100,tol=1e-6):
                 z = z_var.value
             else:
                 print("Warning: Solver failed to find a feasible solution for z. Using previous z value.")
-                # 可以保留上一轮的 z 值或者初始化为某个默认值
-                # 在此例中保留上一轮的值
                 z = z
         else:
             z = soft_thresholding(Lq @ beta - u, lambd / rho)
